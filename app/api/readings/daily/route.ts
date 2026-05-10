@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { getDailyCard, getCardById } from "@/lib/tarot";
 import { complete } from "@/lib/openai";
 import { buildDailyPrompt, TAROT_SYSTEM_PROMPT } from "@/lib/prompts";
 import { createClient } from "@/lib/supabase/server";
 
-export async function POST(_req: NextRequest) {
+export async function POST() {
   try {
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();

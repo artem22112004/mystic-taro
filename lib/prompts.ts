@@ -1,5 +1,4 @@
 import type { DrawnCard } from "@/types/tarot";
-import type { RELATIONSHIP_POSITIONS } from "@/types/tarot";
 
 // ── Системный промпт — общий для всех раскладов ───────────
 
