@@ -27,7 +27,13 @@
 - data/tarot-deck.ts: 22 Старших + 56 Младших Арканов = 78 карт, ключевые слова RU
 - lib/tarot.ts: drawCard(), drawCards(), getDailyCard() (детерминирован по userId+дата), getCardById()
 
-## Фаза 5: AI-интеграция 🔜
+## Фаза 5: AI-интеграция ✅
+- lib/openai.ts: complete(), completeJSON() — обёртки над OpenAI SDK (gpt-4o-mini)
+- lib/prompts.ts: промпты для карты дня, да/нет, расклада на отношения
+- POST /api/readings/daily — бесплатно, детерминированная карта по userId+дата
+- POST /api/readings/yes-no — принимает question, возвращает карту + answer + interpretation
+- POST /api/readings/relationship — принимает context (имена + ситуация), 5 карт + трактовки + вывод
+- Заглушка isPaid = true во всех роутах (реальная проверка — Фаза 7)
 ## Фаза 6: Страницы и UX 🔜
 ## Фаза 7: База данных и авторизация 🔜
 ## Фаза 8: Платежи (заглушка) 🔜
