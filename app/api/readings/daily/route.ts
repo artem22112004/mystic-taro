@@ -24,7 +24,7 @@ export async function POST() {
       .select("*")
       .eq("user_id", user.id)
       .eq("drawn_date", today)
-      .single();
+      .single() as { data: { card_id: string; is_reversed: boolean; interpretation: string | null } | null; error: unknown };
 
     if (cached) {
       const card = getCardById(cached.card_id);
