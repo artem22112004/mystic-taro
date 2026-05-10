@@ -23,6 +23,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://mystic-taro.vercel.app"
+  ),
   title: "Мистические расклады — AI Таро",
   description: "Персональные расклады таро с толкованием на русском языке. Карта дня, расклад Да/Нет, расклад на отношения.",
   manifest: "/manifest.json",
@@ -33,14 +36,20 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/icons/icon.svg",
-    apple: "/icons/icon-192.png",
+    apple: "/icons/icon-192",
   },
   openGraph: {
     type: "website",
     locale: "ru_RU",
     title: "Мистические расклады — AI Таро",
-    description: "Персональные расклады таро с толкованием на русском языке",
+    description: "Персональные расклады таро с толкованием на русском языке. Карта дня, да/нет, расклад на отношения.",
     siteName: "Мистические расклады",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Мистические расклады — AI Таро",
+    description: "AI-таролог, который говорит прямо. Карта дня бесплатно.",
   },
 };
 
