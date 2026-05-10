@@ -167,7 +167,7 @@ export default function YesNoPage() {
             {/* Вопрос */}
             <div className="bg-card/50 rounded-xl px-4 py-3 border border-white/[0.06]">
               <p className="text-muted-foreground text-xs mb-1">Твой вопрос</p>
-              <p className="text-foreground text-sm">"{question}"</p>
+              <p className="text-foreground text-sm">&ldquo;{question}&rdquo;</p>
             </div>
 
             {/* Карта */}

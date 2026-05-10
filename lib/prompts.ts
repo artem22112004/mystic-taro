@@ -52,7 +52,6 @@ type RelationshipContext = {
   situation: string;
 };
 
-type RelationshipPositionLabel = typeof RELATIONSHIP_POSITIONS[number]["label"];
 
 export function buildRelationshipPrompt(
   cards: DrawnCard[],
