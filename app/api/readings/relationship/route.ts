@@ -3,6 +3,7 @@ import { drawCards } from "@/lib/tarot";
 import { completeJSON } from "@/lib/openai";
 import { buildRelationshipPrompt, TAROT_SYSTEM_PROMPT } from "@/lib/prompts";
 import { RELATIONSHIP_POSITIONS } from "@/types/tarot";
+import { createClient } from "@/lib/supabase/server";
 
 interface RelationshipResponse {
   interpretations: string[];
@@ -29,27 +30,36 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Заглушка оплаты — в Фазе 7 будет реальная проверка
+    // Заглушка оплаты — Фаза 8
     const isPaid = true;
     if (!isPaid) {
       return NextResponse.json({ error: "Требуется оплата" }, { status: 402 });
     }
 
     const cards = drawCards(5);
-
     const result = await completeJSON<RelationshipResponse>(
       TAROT_SYSTEM_PROMPT,
-      buildRelationshipPrompt(cards, RELATIONSHIP_POSITIONS, {
-        yourName,
-        partnerName,
-        situation,
-      }),
+      buildRelationshipPrompt(cards, RELATIONSHIP_POSITIONS, { yourName, partnerName, situation }),
       1200
     );
 
     const interpretations = Array.isArray(result.interpretations)
       ? result.interpretations
       : RELATIONSHIP_POSITIONS.map(() => "");
+
+    // Сохраняем в историю если пользователь авторизован
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      await supabase.from("readings").insert({
+        user_id: user.id,
+        type: "relationship",
+        question: `${yourName} и ${partnerName}: ${situation}`,
+        cards: cards.map(({ card, isReversed }) => ({ id: card.id, isReversed })),
+        interpretation: { interpretations, conclusion: result.conclusion },
+        paid_amount: 199,
+      });
+    }
 
     return NextResponse.json({
       cards: cards.map(({ card, isReversed }) => ({ card, isReversed })),

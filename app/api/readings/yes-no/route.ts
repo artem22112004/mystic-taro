@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { drawCard } from "@/lib/tarot";
 import { completeJSON } from "@/lib/openai";
 import { buildYesNoPrompt, TAROT_SYSTEM_PROMPT } from "@/lib/prompts";
+import { createClient } from "@/lib/supabase/server";
 
 interface YesNoResponse {
   answer: string;
@@ -20,19 +21,32 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Заглушка оплаты — в Фазе 7 будет реальная проверка
+    // Заглушка оплаты — Фаза 8
     const isPaid = true;
     if (!isPaid) {
       return NextResponse.json({ error: "Требуется оплата" }, { status: 402 });
     }
 
     const drawn = drawCard();
-
     const result = await completeJSON<YesNoResponse>(
       TAROT_SYSTEM_PROMPT,
       buildYesNoPrompt(drawn, question.trim()),
       500
     );
+
+    // Сохраняем в историю если пользователь авторизован
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      await supabase.from("readings").insert({
+        user_id: user.id,
+        type: "yes-no",
+        question: question.trim(),
+        cards: [{ id: drawn.card.id, isReversed: drawn.isReversed }],
+        interpretation: { answer: result.answer, text: result.interpretation },
+        paid_amount: 49,
+      });
+    }
 
     return NextResponse.json({
       card: drawn.card,

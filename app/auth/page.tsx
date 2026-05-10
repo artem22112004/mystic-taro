@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, Mail, Check } from "lucide-react";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/client";
 
 export default function AuthPage() {
   const [email, setEmail] = useState("");
@@ -16,10 +17,21 @@ export default function AuthPage() {
   const handleSend = async () => {
     if (!isValid) return;
     setLoading(true);
-    // Заглушка — Supabase magic link подключим в Фазе 7
-    await new Promise((r) => setTimeout(r, 1200));
-    setSent(true);
-    setLoading(false);
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        },
+      });
+      if (error) throw error;
+      setSent(true);
+    } catch (e: unknown) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
