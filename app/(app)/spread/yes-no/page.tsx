@@ -6,8 +6,10 @@ import { TarotCard } from "@/components/ui/tarot-card";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MysticLoader } from "@/components/ui/mystic-loader";
+import { PaymentSheet } from "@/components/ui/payment-sheet";
 import { ChevronLeft, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { isPaid, consumePaid } from "@/lib/payment";
 import type { TarotCardData } from "@/types/tarot";
 
 interface YesNoResult {
@@ -32,14 +34,13 @@ export default function YesNoPage() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [showText, setShowText] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showPayment, setShowPayment] = useState(false);
 
   const isValid = question.trim().length >= 10;
 
-  const handleSubmit = async () => {
-    if (!isValid) return;
+  const callApi = async () => {
     setPhase("loading");
     setError(null);
-
     try {
       const res = await fetch("/api/readings/yes-no", {
         method: "POST",
@@ -54,6 +55,22 @@ export default function YesNoPage() {
       setError(e instanceof Error ? e.message : "Что-то пошло не так");
       setPhase("form");
     }
+  };
+
+  const handleSubmit = () => {
+    if (!isValid) return;
+    if (isPaid("yes-no")) {
+      consumePaid("yes-no");
+      callApi();
+    } else {
+      setShowPayment(true);
+    }
+  };
+
+  const handlePaymentSuccess = () => {
+    setShowPayment(false);
+    consumePaid("yes-no");
+    callApi();
   };
 
   const handleFlip = () => {
@@ -122,7 +139,7 @@ export default function YesNoPage() {
               disabled={!isValid}
             >
               <Sparkles size={16} />
-              Получить ответ
+              Получить ответ · 49 ₽
             </Button>
           </motion.div>
         )}
@@ -218,6 +235,13 @@ export default function YesNoPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <PaymentSheet
+        open={showPayment}
+        type="yes-no"
+        onClose={() => setShowPayment(false)}
+        onSuccess={handlePaymentSuccess}
+      />
     </div>
   );
 }

@@ -6,8 +6,10 @@ import { TarotCard } from "@/components/ui/tarot-card";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MysticLoader } from "@/components/ui/mystic-loader";
+import { PaymentSheet } from "@/components/ui/payment-sheet";
 import { ChevronLeft, Heart } from "lucide-react";
 import Link from "next/link";
+import { isPaid, consumePaid } from "@/lib/payment";
 import type { TarotCardData } from "@/types/tarot";
 
 interface RelationshipResult {
@@ -29,17 +31,16 @@ export default function RelationshipPage() {
   const [result, setResult] = useState<RelationshipResult | null>(null);
   const [flipped, setFlipped] = useState<boolean[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [showPayment, setShowPayment] = useState(false);
 
   const isValid =
     form.yourName.trim().length >= 2 &&
     form.partnerName.trim().length >= 2 &&
     form.situation.trim().length >= 10;
 
-  const handleSubmit = async () => {
-    if (!isValid) return;
+  const callApi = async () => {
     setPhase("loading");
     setError(null);
-
     try {
       const res = await fetch("/api/readings/relationship", {
         method: "POST",
@@ -55,6 +56,22 @@ export default function RelationshipPage() {
       setError(e instanceof Error ? e.message : "Что-то пошло не так");
       setPhase("form");
     }
+  };
+
+  const handleSubmit = () => {
+    if (!isValid) return;
+    if (isPaid("relationship")) {
+      consumePaid("relationship");
+      callApi();
+    } else {
+      setShowPayment(true);
+    }
+  };
+
+  const handlePaymentSuccess = () => {
+    setShowPayment(false);
+    consumePaid("relationship");
+    callApi();
   };
 
   const flipCard = (i: number) => {
@@ -129,7 +146,7 @@ export default function RelationshipPage() {
 
             <Button className="w-full" onClick={handleSubmit} disabled={!isValid}>
               <Heart size={16} />
-              Получить расклад
+              Получить расклад · 199 ₽
             </Button>
           </motion.div>
         )}
@@ -230,6 +247,13 @@ export default function RelationshipPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <PaymentSheet
+        open={showPayment}
+        type="relationship"
+        onClose={() => setShowPayment(false)}
+        onSuccess={handlePaymentSuccess}
+      />
     </div>
   );
 }
