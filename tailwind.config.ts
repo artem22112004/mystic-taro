@@ -10,46 +10,48 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         card: {
-          DEFAULT: "var(--card)",
-          foreground: "var(--card-foreground)",
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
         popover: {
-          DEFAULT: "var(--popover)",
-          foreground: "var(--popover-foreground)",
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
         },
         primary: {
-          DEFAULT: "var(--primary)",
-          foreground: "var(--primary-foreground)",
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "var(--secondary)",
-          foreground: "var(--secondary-foreground)",
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
         muted: {
-          DEFAULT: "var(--muted)",
-          foreground: "var(--muted-foreground)",
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          DEFAULT: "var(--accent)",
-          foreground: "var(--accent-foreground)",
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
         },
         destructive: {
-          DEFAULT: "var(--destructive)",
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
-        border: "var(--border)",
-        input: "var(--input)",
-        ring: "var(--ring)",
+        border: "hsl(var(--border) / <alpha-value>)",
+        input: "hsl(var(--input) / <alpha-value>)",
+        ring: "hsl(var(--ring) / <alpha-value>)",
+        /* Кастомные токены */
         gold: {
-          DEFAULT: "var(--gold)",
-          light: "var(--gold-light)",
-          dark: "var(--gold-dark)",
+          DEFAULT: "#D4AF37",
+          light: "#E8CC6A",
+          dark: "#A88520",
         },
         mystic: {
-          DEFAULT: "var(--mystic)",
-          light: "var(--mystic-light)",
+          DEFAULT: "#6A0DAD",
+          light: "#8B3FD4",
         },
       },
       borderRadius: {
@@ -64,10 +66,6 @@ const config: Config = {
         heading: ["var(--font-heading)", "Georgia", "serif"],
       },
       keyframes: {
-        "card-flip": {
-          "0%": { transform: "rotateY(0deg)" },
-          "100%": { transform: "rotateY(180deg)" },
-        },
         "fade-in-up": {
           "0%": { opacity: "0", transform: "translateY(16px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
@@ -82,18 +80,17 @@ const config: Config = {
         },
       },
       animation: {
-        "card-flip": "card-flip 0.6s ease-in-out forwards",
         "fade-in-up": "fade-in-up 0.5s ease-out forwards",
         shimmer: "shimmer 2s linear infinite",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
       },
       backgroundImage: {
         "mystical-gradient":
-          "radial-gradient(ellipse at top, oklch(0.18 0.06 285) 0%, oklch(0.09 0.025 285) 60%)",
+          "radial-gradient(ellipse at top, #1e1535 0%, #0d0b1a 60%)",
         "gold-shimmer":
-          "linear-gradient(90deg, transparent 0%, oklch(0.78 0.14 85 / 20%) 50%, transparent 100%)",
+          "linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.15) 50%, transparent 100%)",
         "card-back":
-          "radial-gradient(ellipse at center, oklch(0.25 0.08 285) 0%, oklch(0.12 0.04 285) 100%)",
+          "radial-gradient(ellipse at center, #1e1535 0%, #0d0b1a 100%)",
       },
     },
   },
