@@ -22,10 +22,10 @@
 - Страница /style-guide — все компоненты в сборе
 - Шрифты: Cinzel (заголовки) + Manrope (кириллица)
 
-## Фаза 4: Данные таро 🔜
-- 78 карт (22 Старших + 56 Младших Аркана)
-- TypeScript-типы
-- Утилиты drawCards(), drawCard()
+## Фаза 4: Данные таро ✅
+- types/tarot.ts: TarotCardData, DrawnCard, SpreadType, RELATIONSHIP_POSITIONS
+- data/tarot-deck.ts: 22 Старших + 56 Младших Арканов = 78 карт, ключевые слова RU
+- lib/tarot.ts: drawCard(), drawCards(), getDailyCard() (детерминирован по userId+дата), getCardById()
 
 ## Фаза 5: AI-интеграция 🔜
 ## Фаза 6: Страницы и UX 🔜
