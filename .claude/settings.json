@@ -1,11 +1,13 @@
 {
   "permissions": {
-    "additionalDirectories": [
-      "c:\\Users\\79210\\Pictures"
-    ],
     "allow": [
       "Bash(git init *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(gh --version)",
+      "Bash(git remote *)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\79210\\Pictures"
     ]
   }
 }

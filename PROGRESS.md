@@ -13,11 +13,14 @@
 - Структура папок: app/, components/, lib/, data/, types/, hooks/
 - .env.example, README.md
 
-## Фаза 3: Дизайн-система 🔜
-- Компонент Button (3 варианта)
-- Компонент Card, Modal, BottomSheet
-- Компонент TarotCard с 3D-флипом
-- Страница style-guide
+## Фаза 3: Дизайн-система ✅
+- Button: primary (золото + glow), ghost (обводка), mystical (фиолетовый shimmer)
+- Card + CardHeader/Title/Content/Footer
+- Modal с анимацией scale+fade
+- BottomSheet с drag-to-dismiss (Framer Motion)
+- TarotCard с 3D-flip (preserve-3d), поддержка isReversed, размеры sm/md/lg
+- Страница /style-guide — все компоненты в сборе
+- Шрифты: Cinzel (заголовки) + Manrope (кириллица)
 
 ## Фаза 4: Данные таро 🔜
 - 78 карт (22 Старших + 56 Младших Аркана)
