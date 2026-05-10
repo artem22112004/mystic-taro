@@ -1,0 +1,47 @@
+{
+  "name": "Мистические расклады",
+  "short_name": "Таро",
+  "description": "AI-расклады таро на русском языке",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D0B1A",
+  "theme_color": "#0D0B1A",
+  "orientation": "portrait",
+  "lang": "ru",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/home.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Главная — карта дня"
+    }
+  ],
+  "categories": ["lifestyle", "entertainment"],
+  "shortcuts": [
+    {
+      "name": "Карта дня",
+      "url": "/",
+      "description": "Получить карту на сегодня"
+    },
+    {
+      "name": "Расклад Да/Нет",
+      "url": "/spread/yes-no",
+      "description": "Задать вопрос"
+    }
+  ]
+}

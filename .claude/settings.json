@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "additionalDirectories": [
+      "c:\\Users\\79210\\Pictures"
+    ],
+    "allow": [
+      "Bash(git init *)",
+      "Bash(git commit -m ' *)"
+    ]
+  }
+}

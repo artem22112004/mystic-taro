@@ -1,0 +1,77 @@
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .glow-gold {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), 0 0 40px rgba(212, 175, 55, 0.1);
+  }
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.1);
+  }
+  .glow-card {
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.15), 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@layer base {
+  :root {
+    /* Мистическая тёмная тема — используется как единственная тема */
+    --background: oklch(0.09 0.025 285);        /* #0D0B1A — глубокий тёмно-фиолетовый */
+    --foreground: oklch(0.94 0.012 290);        /* #F0EEF9 — мягкий белый с фиолетовым оттенком */
+
+    --card: oklch(0.13 0.030 285);              /* #1A1628 — карточка */
+    --card-foreground: oklch(0.94 0.012 290);
+
+    --popover: oklch(0.13 0.030 285);
+    --popover-foreground: oklch(0.94 0.012 290);
+
+    --primary: oklch(0.78 0.14 85);             /* #D4AF37 — золото */
+    --primary-foreground: oklch(0.09 0.025 285);
+
+    --secondary: oklch(0.18 0.035 285);         /* чуть светлее фона */
+    --secondary-foreground: oklch(0.80 0.012 290);
+
+    --muted: oklch(0.16 0.025 285);
+    --muted-foreground: oklch(0.60 0.020 285);  /* приглушённый текст */
+
+    --accent: oklch(0.42 0.18 295);             /* #6A0DAD — фиолетовый акцент */
+    --accent-foreground: oklch(0.94 0.012 290);
+
+    --destructive: oklch(0.55 0.20 25);
+    --border: oklch(1 0 0 / 8%);
+    --input: oklch(1 0 0 / 10%);
+    --ring: oklch(0.78 0.14 85 / 60%);         /* золотое кольцо фокуса */
+
+    --radius: 0.875rem;
+
+    /* Золотые акценты */
+    --gold: oklch(0.78 0.14 85);
+    --gold-light: oklch(0.88 0.10 85);
+    --gold-dark: oklch(0.62 0.14 75);
+
+    /* Фиолетовые акценты */
+    --mystic: oklch(0.42 0.18 295);
+    --mystic-light: oklch(0.55 0.18 295);
+    --mystic-glow: oklch(0.55 0.20 295 / 30%);
+  }
+
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+
+  html {
+    @apply font-sans;
+    color-scheme: dark;
+  }
+}
